@@ -1,0 +1,21 @@
+poi_id,name,category,location,country,climate,budget,duration_hours,rating
+1,Eiffel Tower,culture,Paris,France,warm,medium,2,4.7
+2,Great Wall of China,hiking,Beijing,China,cold,low,4,4.8
+3,Santorini Beach,beaches,Santorini,Greece,warm,medium,3,4.6
+4,Louvre Museum,museums,Paris,France,cold,high,3,4.9
+5,Amazon Rainforest,adventure,Amazon,Brazil,warm,medium,8,4.5
+6,Banff National Park,hiking,Banff,Canada,cold,medium,5,4.7
+7,Tokyo Skytree,culture,Tokyo,Japan ,warm ,high,2,4.6
+8,Acropolis,museums,Athens,Greece,warm,medium,2,4.8
+9,Statue of Liberty,culture,New York,USA,warm,medium,2,4.7
+10,Disneyland,entertainment,Anaheim,USA,warm,high,6,4.8
+11,Colosseum,history,Rome,Italy,warm,medium,2,4.6
+12,Machu Picchu,adventure,Cusco,Peru,cold,medium,6,4.9
+13,Sydney Opera House,culture,Sydney,Australia,warm,high,2,4.6
+14,Table Mountain,hiking,Cape Town,South Africe,warm,low,4,4.7
+15,Metropolitan Museum,museums,New York,USA,cold,medium,3,4.8
+16,Plitvice Lakes,nature,Zagreb,Croatia,cold,low,4,4.7
+17,Christ the Redeemer,culture,Rio de Janeiro,Brazil,warm,low,2,4.6
+18,Ubud Monkey Forest,nature,Bali,Indonesia,warm,medium,2,4.5
+19,Sagrada Familia,architecture,Barcelona,Spain,warm,high,2,4.8
+20,Petra,history,Petra,Jordan,warm,medium,4,4.9

@@ -1,0 +1,6 @@
+user_id,name,preferred_climate,preferred_budget,interest_categories,trip_duration_days
+1,Alice,temperate,medium,"museum, landmark",5
+2,Bob,warm,low,"beach, nature",7
+3,Carol,dry,high,"theme_park, landmark",4
+4,David,temperate,medium,"museum, nature, landmark",6
+5,Eva,cold,high,"nature, skiing",8

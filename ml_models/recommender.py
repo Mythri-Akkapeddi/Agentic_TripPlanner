@@ -17,4 +17,5 @@ def hybrid_recommend(
     # [Optional] Add collaborative filtering / similarity signals later
 
     # Return top N POIs
-    return scored_pois[["poi_id", "name", "score"]].head(top_n)
+    return scored_pois.head(top_n)
+

@@ -57,14 +57,27 @@ def score_pois_for_user(user_id, poi_file="data/POIs_draft1.csv", history_file="
     interacted = history[history["user_id"] == user_id]["poi_id"]
     unseen_pois = pois[~pois["poi_id"].isin(interacted)]
 
-    # Encoding using saved encoders (handle unseen labels by dropping them)
+    # Keeping a copy of the original for output
+    original_unseen = unseen_pois.copy()
+
+    # Applying encoders for model input
     for col, le in encoders.items():
+        # Drop rows with unseen labels
         valid_mask = unseen_pois[col].isin(le.classes_)
         unseen_pois = unseen_pois[valid_mask]
+        original_unseen = original_unseen.loc[unseen_pois.index]  # match index
+
+        # Encoding for prediction
         unseen_pois[col] = le.transform(unseen_pois[col])
 
+    # Extracting features for prediction
     features = unseen_pois[["climate", "category", "budget", "duration_hours", "rating"]]
     scores = model.predict_proba(features)[:, 1]  # probability of 'liked' class
 
-    unseen_pois["score"] = scores
-    return unseen_pois.sort_values(by="score", ascending=False)
+    # Adding scores to original POI data
+    scored_pois = original_unseen.copy()
+    scored_pois["score"] = scores
+
+    # Sort and return
+    return scored_pois.sort_values(by="score", ascending=False)
+

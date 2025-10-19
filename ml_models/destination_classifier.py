@@ -12,7 +12,7 @@ def load_data(poi_file):
 
 def preprocess_data(data):
     encoders = {}
-    X = data[["climate", "location", "budget"]]
+    X = data[["climate", "location", "budget"]].copy()  #True copy to accommodate SettingWithCopyWarning
     y = data["category"]
     
     for col in X.columns:
@@ -25,6 +25,7 @@ def preprocess_data(data):
     encoders["category"] = y_le
 
     return X, y, encoders
+
 
 def train_model(poi_file="data/POIs_draft1.csv"):
     data = load_data(poi_file)

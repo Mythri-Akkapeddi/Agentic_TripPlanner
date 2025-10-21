@@ -14,7 +14,12 @@ scoring_task = Task(
 )
 
 optimizer_task = Task(
-    description="Use top POIs to create a 3-day itinerary. Ensure budget and diversity constraints.",
+    description=(
+        "Use top POIs to create a 3-day itinerary. Ensure the plan fits within the user's budget, "
+        "includes a diverse set of activities per day, and stays geographically feasible. "
+        "Avoid recommending POIs from multiple distant countries or cities in a short trip. "
+        "Unless specified otherwise, assume the trip should be in a single city or country region."
+    ),
     expected_output="Optimized itinerary with day/slot structure.",
     agent=optimizer_agent
 )

@@ -12,9 +12,9 @@ def optimize_itinerary(
         if col not in recommended_pois.columns:
             raise ValueError(f"Missing required column in input: '{col}'")
 
-    # Enforce single base location
+    # Enforcing single base location
     if recommended_pois["location"].nunique() > 1:
-        raise ValueError("🔴 POIs are from multiple cities. Optimizer expects a single base city.")
+        raise ValueError("POIs are from multiple cities. Optimizer expects a single base city.")
 
     budget_levels = ["low","medium","high"]
     if max_budget not in budget_levels:
@@ -23,7 +23,7 @@ def optimize_itinerary(
     allowed = budget_levels[:budget_levels.index(max_budget) + 1]
     filtered = recommended_pois[recommended_pois["budget"].isin(allowed)].copy()
     if filtered.empty:
-        print("⚠️ After budget filtering, no POIs remain.")
+        print("After budget filtering, no POIs remain.")
         return pd.DataFrame()
 
     filtered = filtered.sort_values(by="score", ascending=False)
@@ -49,7 +49,7 @@ def optimize_itinerary(
         selected.append(poi)
 
     if not selected:
-        print("⚠️ No POIs selected under current constraints.")
+        print("No POIs selected under current constraints.")
         return pd.DataFrame()
 
     itinerary_df = pd.DataFrame(selected)

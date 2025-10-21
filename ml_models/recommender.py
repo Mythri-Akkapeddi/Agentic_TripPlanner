@@ -7,7 +7,7 @@ def hybrid_recommend(
     history_file: str = "data/user_history_draft1.csv",
     top_n: int = 10
 ) -> pd.DataFrame:
-    # Score POIs
+    # Scoring POIs
     scored_pois = score_pois_for_user(user_id, poi_file, history_file)
     if scored_pois.empty:
         raise ValueError("No POIs could be scored for this user.")
@@ -32,5 +32,5 @@ def hybrid_recommend(
             return country_filtered.head(top_n)
 
     # Final fallback: top_n overall
-    print("⚠️ Returning top_n POIs without country filter (insufficient regional density).")
+    print("Returning top_n POIs without country filter (insufficient regional density).")
     return scored_pois.head(top_n)

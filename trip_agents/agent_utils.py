@@ -27,7 +27,7 @@ def generate_itinerary(pois_df: pd.DataFrame, trip_days: int = 3, budget: str = 
     """
     if "country" in pois_df.columns and pois_df["country"].nunique() > 1:
         best_country = pois_df.groupby("country")["score"].mean().idxmax()
-        print(f"⚠️ Filtering POIs to single country: {best_country}")
+        print(f"Filtering POIs to single country: {best_country}")
         pois_df = pois_df[pois_df["country"] == best_country]
 
     try:
@@ -37,5 +37,5 @@ def generate_itinerary(pois_df: pd.DataFrame, trip_days: int = 3, budget: str = 
             max_budget=budget,
         )
     except ValueError as e:
-        print(f"❌ Error during itinerary generation: {e}")
+        print(f"Error during itinerary generation: {e}")
         return pd.DataFrame()

@@ -19,3 +19,8 @@ poi_id,name,category,location,country,climate,budget,duration_hours,rating
 18,Ubud Monkey Forest,nature,Bali,Indonesia,warm,medium,2,4.5
 19,Sagrada Familia,architecture,Barcelona,Spain,warm,high,2,4.8
 20,Petra,history,Petra,Jordan,warm,medium,4,4.9
+21,Jardin des Tuileries,gardens,Paris,France,warm,low,2,4.7
+22,Canal Saint-Martin,walking,Paris,France,warm,low,2,4.6
+23,Père Lachaise Cemetery,culture,Paris,France,warm,low,2,4.8
+24,Luxembourg Gardens,gardens,Paris,France,warm,low,2,4.7
+25,Montmartre,culture,Paris,France,warm,low,3,4.8

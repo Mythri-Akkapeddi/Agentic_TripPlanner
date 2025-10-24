@@ -1,25 +1,29 @@
 from crewai import Task
-from trip_agents.trip_agents import planner_agent, scoring_agent, optimizer_agent
 
-planner_task = Task(
-    description="Analyze user preferences to determine the best travel category.",
-    expected_output="Recommended category: e.g., museums, hiking, beaches.",
-    agent=planner_agent
-)
+def create_trip_planning_task(agent, location, budget, climate):
+    return Task(
+        description=f"Plan a trip for {location} with a {budget} budget and {climate} climate.",
+        expected_output="A suitable trip category (e.g., culture, hiking, beaches).",
+        agent=agent
+    )
 
-scoring_task = Task(
-    description="Use user_id to score POIs based on preferences and rank the top ones.",
-    expected_output="Top POIs with scores.",
-    agent=scoring_agent
-)
+def create_scoring_task(agent, user_id, location, country):
+    return Task(
+        description=f"Score POIs in {location}, {country} for user {user_id}.",
+        expected_output="A ranked list of POIs with relevance scores.",
+        agent=agent
+    )
 
-optimizer_task = Task(
-    description=(
-        "Use top POIs to create a 3-day itinerary. Ensure the plan fits within the user's budget, "
-        "includes a diverse set of activities per day, and stays geographically feasible. "
-        "Avoid recommending POIs from multiple distant countries or cities in a short trip. "
-        "Unless specified otherwise, assume the trip should be in a single city or country region."
-    ),
-    expected_output="Optimized itinerary with day/slot structure.",
-    agent=optimizer_agent
-)
+def create_optimizer_task(agent, trip_days, slots_per_day, budget):
+    return Task(
+        description=f"Optimize itinerary for {trip_days} days and {slots_per_day} activities/day within {budget} budget.",
+        expected_output="Ordered itinerary dataframe with day/time slots and POIs.",
+        agent=agent
+    )
+
+def create_explanation_task(agent):
+    return Task(
+        description="Explain why each POI was selected in the final itinerary.",
+        expected_output="Natural language explanation for each POI.",
+        agent=agent
+    )

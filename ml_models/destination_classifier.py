@@ -14,7 +14,11 @@ def preprocess_data(data):
     encoders = {}
     X = data[["climate", "location", "budget"]].copy()  #True copy to accommodate SettingWithCopyWarning
     y = data["category"]
-    
+    # Strip whitespace in all string columns
+    for col in ["climate", "location", "budget", "category"]:
+        data[col] = data[col].astype(str).str.strip()
+
+
     for col in X.columns:
         le = LabelEncoder()
         X[col] = le.fit_transform(X[col])
@@ -39,8 +43,15 @@ def train_model(poi_file="data/POIs_draft1.csv"):
     dump(encoders, ENCODER_PATH)
 
     print("Destination classifier trained and saved.")
+    print("\nTrained encoder classes:")
+    for col, le in encoders.items():
+        print(f"{col}: {list(le.classes_)}")
+
 
 def predict_category(climate, location, budget):
+    from sklearn.exceptions import NotFittedError
+    import numpy as np
+
     model = load(MODEL_PATH)
     encoders = load(ENCODER_PATH)
 
@@ -51,8 +62,22 @@ def predict_category(climate, location, budget):
     }])
 
     for col in input_df.columns:
-        input_df[col] = encoders[col].transform(input_df[col])
+        le = encoders[col]
+        value = input_df[col].iloc[0]
 
-    prediction = model.predict(input_df)[0]
+        if value not in le.classes_:
+            print(f"Unseen label '{value}' for column '{col}'. Using fallback: most frequent class.")
+            # Use most frequent class as fallback
+            most_common = le.classes_[0]
+            input_df[col] = le.transform([most_common])
+        else:
+            input_df[col] = le.transform([value])
+
+    try:
+        prediction = model.predict(input_df)[0]
+    except NotFittedError:
+        raise ValueError("Model has not been trained.")
+
     category = encoders["category"].inverse_transform([prediction])[0]
     return category
+

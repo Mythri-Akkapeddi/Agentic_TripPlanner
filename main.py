@@ -1,26 +1,29 @@
-from crewai import Crew, Process
-from trip_agents.trip_agents import planner_agent, scoring_agent, optimizer_agent
-from trip_agents.trip_tasks import planner_task, scoring_task, optimizer_task
-from trip_agents.agent_utils import (
-    classify_user_destination,
-    get_ranked_pois,
-    generate_itinerary
-)
+from trip_agents.trip_agents import generate_itinerary
+import pandas as pd
 
-def main(user_id: int):
-    print(f"Running Trip Planning Crew for User {user_id}...")
+def main():
+    print("Agentic Trip Planner")
+    user_id = 1
 
-    crew = Crew(
-        agents=[planner_agent, scoring_agent, optimizer_agent],
-        tasks=[planner_task, scoring_task, optimizer_task],
-        process=Process.sequential,
-        verbose=True
+    location = input("Enter a city you'd like to visit (e.g., Paris): ").strip()
+    country = input("Enter the country: ").strip()
+    budget = input("Enter your budget level (low/medium/high): ").strip().lower() or "medium"
+    climate = input("Preferred climate (warm/cold): ").strip().lower() or "warm"
+
+    itinerary = generate_itinerary(
+        user_id=user_id,
+        location=location,
+        country=country,
+        budget=budget,
+        climate=climate,
+        trip_days=3
     )
 
-    result = crew.kickoff(inputs={"user_id": user_id})
-
-    print("\nFinal Output:\n")
-    print(result)
+    print("\nYour Optimized Itinerary")
+    for _, row in itinerary.iterrows():
+        print(f"Day {row['day']} {row['time_of_day']}: {row['name']} ({row['category']}) — "
+              f"Budget: {row['budget']} | Rating: {row['rating']}")
+        print(f"→ {row['explanation']}\n")
 
 if __name__ == "__main__":
-    main(user_id=1)
+    main()

@@ -14,6 +14,11 @@ def test_itinerary_optimizer():
     print("\nTop POIs before optimization:")
     print(recommendations.head(5))
 
+    if recommendations["location"].nunique() > 1:
+        top_city = recommendations["location"].value_counts().idxmax()
+        print(f"\nFiltering POIs to top city: {top_city}")
+        recommendations = recommendations[recommendations["location"] == top_city]
+
     itinerary = optimize_itinerary(
         recommended_pois=recommendations,
         trip_days=trip_days,

@@ -66,3 +66,7 @@ coverage.xml
 *.bak
 *.tmp
 *.swp
+
+# Files not in use
+trip_agents/agent_utils.py
+trip_agents/tools.py
